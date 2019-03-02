@@ -11,7 +11,6 @@ node {
     }
     stage('start') {
         myGradleContainer.inside("-v ${env.HOME}/.gradle:/home/gradle/.gradle") {   //使用Test时下载的依赖
-            sh 'apk add --no-cache bash'
             sh 'cd complete && /bin/sh gradlew start'                   //cd进complete目录, 执行gradlew start命令
         }
     }
