@@ -6,14 +6,13 @@ node {
     }
     stage('test') {
         myGradleContainer.inside("-v ${env.HOME}/.gradle:/home/gradle/.gradle") {   //将Docker Container中目录/home/gradle/.gradle映射至本地(dependencies)以便start不需要再次下载
-            sh 'apk add --no-cache bash'
-            sh 'cd complete && ./gradlew test'                     //cd进complete目录, 执行gradlew test命令
+            sh 'cd complete && /bin/sh gradlew test'                     //cd进complete目录, 执行gradlew test命令
         }
     }
     stage('start') {
         myGradleContainer.inside("-v ${env.HOME}/.gradle:/home/gradle/.gradle") {   //使用Test时下载的依赖
             sh 'apk add --no-cache bash'
-            sh 'cd complete &&  ./gradlew start'                   //cd进complete目录, 执行gradlew start命令
+            sh 'cd complete && /bin/sh gradlew start'                   //cd进complete目录, 执行gradlew start命令
         }
     }
 }
